@@ -18,7 +18,7 @@ body {
 .heart {
     position: absolute;
     color: pink;
-    font-size: 30px;
+    font-size: 24px;
     animation: fall 8s linear infinite;
 }
 
@@ -124,4 +124,39 @@ const texts = ["NIE 💔", "na pewno? 😳", "ej no 😭", "nie bądź taka 😘
 
 noBtn.addEventListener("mouseover", () => {
     const x = Math.random() * (window.innerWidth - 120);
-    const y = Math.random() * (window.innerHe*
+    const y = Math.random() * (window.innerHeight - 60);
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    noBtn.style.transform = `rotate(${Math.random() * 40 - 20}deg) scale(${Math.random() * 0.6 + 0.4})`;
+    noBtn.innerText = texts[Math.floor(Math.random() * texts.length)];
+});
+
+// ====== SPAWNUJ SERDUSZKA ======
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 30 + 15 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}, 300);
+
+// ====== BUZIAKI PO KLIKNIĘCIU ======
+document.addEventListener("click", (e) => {
+    const kiss = document.createElement("div");
+    kiss.className = "kiss";
+    kiss.innerHTML = "💋";
+    kiss.style.left = e.clientX + "px";
+    kiss.style.top = e.clientY + "px";
+    document.body.appendChild(kiss);
+
+    setTimeout(() => kiss.remove(), 4000);
+});
+</script>
+
+</body>
+</html>
