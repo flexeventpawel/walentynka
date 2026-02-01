@@ -9,7 +9,7 @@ body {
     font-family: Arial, sans-serif;
     background: #ffe6eb;
     text-align: center;
-    padding: 20px;
+    padding: 40px;
 }
 
 img {
@@ -48,7 +48,7 @@ button {
 
 <body>
 
-<img src="foto1.jpeg" alt="Nasze zdjęcie">
+<img src="foto1.jpg" alt="Nasze zdjęcie">
 <h1>Czy zostaniesz moją walentynką? ❤️</h1>
 
 <div class="buttons">
@@ -60,8 +60,8 @@ button {
 const noBtn = document.getElementById("no");
 
 noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
+    const x = Math.random() * (window.innerWidth - 170);
+    const y = Math.random() * (window.innerHeight - 20);
 
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
