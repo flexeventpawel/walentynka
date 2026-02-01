@@ -6,31 +6,72 @@
 
 <style>
 body {
-    font-family: Arial, sans-serif;
-    background: #ffe6eb;
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+    overflow: hidden;
     text-align: center;
-    padding: 40px;
 }
 
-img {
-    max-width: 90%;
-    border-radius: 20px;
+/* SERDUSZKA W TLE */
+.heart {
+    position: absolute;
+    color: pink;
+    font-size: 24px;
+    animation: fall 8s linear infinite;
 }
 
-h1 {
+@keyframes fall {
+    0% { transform: translateY(-10vh); opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* BUZIAKI */
+.kiss {
+    position: absolute;
+    font-size: 30px;
+    animation: float 4s ease-out forwards;
+}
+
+@keyframes float {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2) translateY(-200px); opacity: 0; }
+}
+
+/* TEKST */
+#text {
+    margin-top: 40px;
+    font-size: 32px;
+    color: #c2185b;
+    min-height: 100px;
+}
+
+/* ZDJĘCIE */
+#photo {
+    display: none;
     margin-top: 20px;
 }
 
+#photo img {
+    max-width: 80%;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(255,0,100,0.5);
+}
+
+/* PRZYCISKI */
 .buttons {
+    display: none;
     margin-top: 30px;
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 15px 35px;
+    font-size: 20px;
     border: none;
-    border-radius: 10px;
+    border-radius: 15px;
     cursor: pointer;
+    margin: 10px;
 }
 
 #yes {
@@ -48,28 +89,39 @@ button {
 
 <body>
 
-<img src="foto1.jpg" alt="Nasze zdjęcie">
-<h1>Czy zostaniesz moją walentynką? ❤️</h1>
+<div id="text"></div>
+
+<div id="photo">
+    <img src="foto1.jpg">
+</div>
 
 <div class="buttons">
-    <button id="yes" onclick="window.location.href='tak.html'">TAK</button>
-    <button id="no">NIE</button>
+    <button id="yes" onclick="window.location.href='tak.html'">TAK 💘</button>
+    <button id="no">NIE 💔</button>
 </div>
 
 <script>
+// ====== TEKST SŁOWO PO SŁOWIE ======
+const words = "Droga Martynko ! Czy zostaniesz Moją Walentynką?".split(" ");
+let index = 0;
+const textDiv = document.getElementById("text");
+
+const interval = setInterval(() => {
+    textDiv.innerHTML += words[index] + " ";
+    index++;
+    if (index === words.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+            document.getElementById("photo").style.display = "block";
+            document.querySelector(".buttons").style.display = "block";
+        }, 800);
+    }
+}, 400);
+
+// ====== UCIEKAJĄCY PRZYCISK NIE ======
 const noBtn = document.getElementById("no");
+const texts = ["NIE 💔", "na pewno? 😳", "ej no 😭", "nie bądź taka 😘", "plss 🥺"];
 
 noBtn.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 170);
-    const y = Math.random() * (window.innerHeight - 20);
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-
-    const size = Math.random() * 30 + 10;
-    noBtn.style.fontSize = size + "px";
-});
-</script>
-
-</body>
-</html>
+    const x = Math.random() * (window.innerWidth - 120);
+    const y = Math.random() * (window.innerHe*
