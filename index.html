@@ -14,10 +14,9 @@ body {
     text-align: center;
 }
 
-/* SERDUSZKA W TLE */
+/* SERCA */
 .heart {
     position: absolute;
-    color: pink;
     font-size: 24px;
     animation: fall 8s linear infinite;
 }
@@ -39,12 +38,32 @@ body {
     100% { transform: scale(2) translateY(-200px); opacity: 0; }
 }
 
+/* CONFETTI */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
 /* TEKST */
 #text {
     margin-top: 40px;
     font-size: 32px;
     color: #c2185b;
     min-height: 100px;
+}
+
+/* LICZNIK */
+#counter {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #880e4f;
 }
 
 /* ZDJĘCIE */
@@ -90,18 +109,19 @@ button {
 <body>
 
 <div id="text"></div>
+<div id="counter">Próby odmowy: 0 😈</div>
 
 <div id="photo">
     <img src="foto1.jpg">
 </div>
 
 <div class="buttons">
-    <button id="yes" onclick="window.location.href='tak.html'">TAK 💘</button>
+    <button id="yes">TAK 💘</button>
     <button id="no">NIE 💔</button>
 </div>
 
 <script>
-// ====== TEKST SŁOWO PO SŁOWIE ======
+// ===== TEKST SŁOWO PO SŁOWIE =====
 const words = "Droga Martynko ! Czy zostaniesz Moją Walentynką?".split(" ");
 let index = 0;
 const textDiv = document.getElementById("text");
@@ -118,11 +138,17 @@ const interval = setInterval(() => {
     }
 }, 400);
 
-// ====== UCIEKAJĄCY PRZYCISK NIE ======
+// ===== PRZYCISK NIE + LICZNIK =====
 const noBtn = document.getElementById("no");
+const counter = document.getElementById("counter");
+let tries = 0;
+
 const texts = ["NIE 💔", "na pewno? 😳", "ej no 😭", "nie bądź taka 😘", "plss 🥺"];
 
 noBtn.addEventListener("mouseover", () => {
+    tries++;
+    counter.innerHTML = `Próby odmowy: ${tries} 😈`;
+
     const x = Math.random() * (window.innerWidth - 120);
     const y = Math.random() * (window.innerHeight - 60);
 
@@ -133,7 +159,28 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.innerText = texts[Math.floor(Math.random() * texts.length)];
 });
 
-// ====== SPAWNUJ SERDUSZKA ======
+// ===== CONFETTI =====
+function launchConfetti() {
+    for (let i = 0; i < 80; i++) {
+        const conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        document.body.appendChild(conf);
+
+        setTimeout(() => conf.remove(), 3000);
+    }
+}
+
+// ===== TAK =====
+document.getElementById("yes").addEventListener("click", () => {
+    launchConfetti();
+    setTimeout(() => {
+        window.location.href = "tak.html";
+    }, 1200);
+});
+
+// ===== SERCA =====
 setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -141,11 +188,10 @@ setInterval(() => {
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = Math.random() * 30 + 15 + "px";
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), 8000);
 }, 300);
 
-// ====== BUZIAKI PO KLIKNIĘCIU ======
+// ===== BUZIAKI =====
 document.addEventListener("click", (e) => {
     const kiss = document.createElement("div");
     kiss.className = "kiss";
@@ -153,7 +199,6 @@ document.addEventListener("click", (e) => {
     kiss.style.left = e.clientX + "px";
     kiss.style.top = e.clientY + "px";
     document.body.appendChild(kiss);
-
     setTimeout(() => kiss.remove(), 4000);
 });
 </script>
